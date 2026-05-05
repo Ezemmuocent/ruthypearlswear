@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  CloudFormation template to provision an S3 bucket and an Elastic Beanstalk
+  Application and Environment for the RuthyPearls Wear app (Docker platform).
+
+Parameters:
+  AppName:
+    Type: String
+    Description: Elastic Beanstalk application name
+  EnvName:
+    Type: String
+    Description: Elastic Beanstalk environment name
+  BucketName:
+    Type: String
+    Description: S3 bucket name for application versions
+  SolutionStackName:
+    Type: String
+    Description: Elastic Beanstalk solution stack name (Docker)
+    Default: "64bit Amazon Linux 2 v3.6.8 running Docker"
+
+Resources:
+  AppS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  EBApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: !Ref AppName
+      Description: "RuthyPearls Wear Elastic Beanstalk Application"
+
+  EBEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref EBApplication
+      EnvironmentName: !Ref EnvName
+      SolutionStackName: !Ref SolutionStackName
+      # Do not set VersionLabel here — CI uploads versions and updates the environment
+
+Outputs:
+  S3BucketName:
+    Description: S3 bucket created for application versions
+    Value: !Ref AppS3Bucket
+  ApplicationName:
+    Description: Elastic Beanstalk application name
+    Value: !Ref EBApplication
+  EnvironmentName:
+    Description: Elastic Beanstalk environment name
+    Value: !Ref EBEnvironment

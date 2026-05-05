@@ -1,0 +1,71 @@
+name: Deploy to AWS Elastic Beanstalk
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Create deployment bundle
+        run: |
+          zip -r app.zip . -x node_modules\* .git\* .github\* 
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Ensure S3 bucket exists
+        run: |
+          set -e
+          BUCKET=${{ secrets.EB_S3_BUCKET }}
+          if ! aws s3api head-bucket --bucket "$BUCKET" 2>/dev/null; then
+            aws s3api create-bucket --bucket "$BUCKET" --region ${{ secrets.AWS_REGION }} \
+              --create-bucket-configuration LocationConstraint=${{ secrets.AWS_REGION }} || true
+          fi
+
+      - name: Ensure Elastic Beanstalk application exists
+        run: |
+          APP=${{ secrets.EB_APP_NAME }}
+          if ! aws elasticbeanstalk describe-applications --application-names "$APP" --region ${{ secrets.AWS_REGION }} | grep -q "$APP"; then
+            aws elasticbeanstalk create-application --application-name "$APP" --region ${{ secrets.AWS_REGION }} || true
+          fi
+
+      - name: Upload bundle to S3 and create application version
+        run: |
+          BUCKET=${{ secrets.EB_S3_BUCKET }}
+          APP=${{ secrets.EB_APP_NAME }}
+          ENV=${{ secrets.EB_ENV_NAME }}
+          SHA=${{ github.sha }}
+          KEY=app-${SHA}.zip
+          aws s3 cp app.zip s3://$BUCKET/$KEY
+          aws elasticbeanstalk create-application-version --application-name "$APP" --version-label "$SHA" --source-bundle S3Bucket=$BUCKET,S3Key=$KEY --region ${{ secrets.AWS_REGION }} || true
+
+      - name: Create or update Elastic Beanstalk environment
+        run: |
+          APP=${{ secrets.EB_APP_NAME }}
+          ENV=${{ secrets.EB_ENV_NAME }}
+          SHA=${{ github.sha }}
+          # If environment doesn't exist, create it; otherwise update it
+          if ! aws elasticbeanstalk describe-environments --application-name "$APP" --environment-names "$ENV" --region ${{ secrets.AWS_REGION }} | grep -q "EnvironmentName"; then
+            aws elasticbeanstalk create-environment --application-name "$APP" --environment-name "$ENV" --version-label "$SHA" --solution-stack-name "64bit Amazon Linux 2 v3.6.8 running Docker" --region ${{ secrets.AWS_REGION }} || true
+          else
+            aws elasticbeanstalk update-environment --environment-name "$ENV" --version-label "$SHA" --region ${{ secrets.AWS_REGION }} || true
+          fi
+

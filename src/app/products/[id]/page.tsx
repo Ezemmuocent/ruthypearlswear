@@ -1,0 +1,221 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { notFound } from 'next/navigation';
+import { Product, CartItem } from '@/lib/types';
+import { formatPrice } from '@/lib/currency';
+
+interface ProductPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function ProductPage({ params }: ProductPageProps) {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [addedToCart, setAddedToCart] = useState(false);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [params.id]);
+
+  async function fetchProduct() {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/products/${params.id}`);
+      const data = await response.json();
+
+      if (!data.success || !data.data) {
+        notFound();
+      }
+
+      setProduct(data.data);
+      setSelectedSize(data.data.sizes[0]);
+      setSelectedColor(data.data.colors[0]);
+    } catch (error) {
+      console.error('Failed to fetch product:', error);
+      notFound();
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleAddToCart() {
+    if (!product || !selectedSize || !selectedColor) {
+      alert('Please select all options');
+      return;
+    }
+
+    const cartItem: CartItem = {
+      id: `${product.id}-${selectedSize}-${selectedColor}`,
+      productId: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      quantity,
+      size: selectedSize,
+      color: selectedColor,
+    };
+
+    // Get existing cart from localStorage
+    const existingCart = localStorage.getItem('cart');
+    const cart = existingCart ? JSON.parse(existingCart) : [];
+
+    // Check if item already exists
+    const existingItemIndex = cart.findIndex((item: CartItem) => item.id === cartItem.id);
+    if (existingItemIndex > -1) {
+      cart[existingItemIndex].quantity += quantity;
+    } else {
+      cart.push(cartItem);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    setAddedToCart(true);
+
+    setTimeout(() => setAddedToCart(false), 2000);
+  }
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-gray-500">Loading product...</div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return notFound();
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Product Image */}
+        <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
+          <span className="text-gray-400 text-lg">Product Image</span>
+        </div>
+
+        {/* Product Details */}
+        <div>
+          <div className="mb-6">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              {product.name}
+            </h1>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-1">
+                <span className="text-yellow-500">★</span>
+                <span className="font-semibold">{product.rating}</span>
+                <span className="text-gray-600">({product.reviews} reviews)</span>
+              </div>
+              <span className="text-lg font-bold text-purple-600">
+                {formatPrice(product.price)}
+              </span>
+            </div>
+          </div>
+
+          <p className="text-gray-600 mb-6">
+            {product.description}
+          </p>
+
+          {/* Size Selection */}
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-900 mb-3">
+              Size
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {product.sizes.map(size => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`px-4 py-2 border rounded-lg transition ${
+                    selectedSize === size
+                      ? 'bg-purple-600 text-white border-purple-600'
+                      : 'border-gray-300 text-gray-700 hover:border-purple-600'
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Color Selection */}
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-900 mb-3">
+              Color
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {product.colors.map(color => (
+                <button
+                  key={color}
+                  onClick={() => setSelectedColor(color)}
+                  className={`px-4 py-2 border rounded-lg transition ${
+                    selectedColor === color
+                      ? 'bg-purple-600 text-white border-purple-600'
+                      : 'border-gray-300 text-gray-700 hover:border-purple-600'
+                  }`}
+                >
+                  {color}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quantity */}
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-900 mb-3">
+              Quantity
+            </label>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+              >
+                −
+              </button>
+              <span className="text-xl font-semibold">{quantity}</span>
+              <button
+                onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+              >
+                +
+              </button>
+              <span className="text-sm text-gray-600 ml-4">
+                {product.stock} in stock
+              </span>
+            </div>
+          </div>
+
+          {/* Add to Cart Button */}
+          <button
+            onClick={handleAddToCart}
+            className={`w-full py-3 rounded-lg font-semibold text-white transition mb-4 ${
+              addedToCart
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-purple-600 hover:bg-purple-700'
+            }`}
+          >
+            {addedToCart ? '✓ Added to Cart' : 'Add to Cart'}
+          </button>
+
+          {/* Product Info */}
+          <div className="border-t pt-6 space-y-4">
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Product Details</h3>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>✓ Premium quality materials</li>
+                <li>✓ Fast and free shipping on orders over $50</li>
+                <li>✓ 30-day return policy</li>
+                <li>✓ Secure payment processing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

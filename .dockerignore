@@ -1,0 +1,11 @@
+.next
+node_modules
+npm-debug.log
+.env
+.vercel
+.cache
+.github
+Dockerfile
+docker-compose*.yml
+*.pem
+*.log

@@ -1,0 +1,39 @@
+{
+  "buildCommand": "npm run build",
+  "env": {
+    "NEXT_PUBLIC_API_URL": {
+      "description": "API base URL for your deployed application",
+      "required": false,
+      "default": "https://www.ruthypearlswear.com"
+    },
+    "NEXT_PUBLIC_STRIPE_KEY": {
+      "description": "Stripe public key for payment processing",
+      "required": false
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key (keep confidential)",
+      "required": false
+    },
+    "NEXTAUTH_SECRET": {
+      "description": "Secret key for NextAuth.js authentication",
+      "required": false,
+      "default": "@/bin/sh -c 'openssl rand -base64 32'"
+    },
+    "DATABASE_URL": {
+      "description": "Database connection string",
+      "required": false
+    }
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
+    }
+  ]
+}
