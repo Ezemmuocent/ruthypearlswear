@@ -30,9 +30,9 @@ https://ruthypearlswear.vercel.app
 ✅ **Completely free** - No domain purchase needed!
 
 ### Step 3b: Connect Custom Domain (Optional - Paid)
-If you want www.ruthypearlswear.com instead:
+If you want www.rpwears.com instead:
 1. In Vercel Dashboard → Settings → Domains
-2. Add `www.ruthypearlswear.com`
+2. Add `www.rpwears.com`
 3. Update DNS records at your domain registrar:
    - **CNAME** record: `www` → `cname.vercel-dns.com`
    - **A** record: `@` → `76.76.19.0`
@@ -123,7 +123,7 @@ sudo nano /etc/nginx/sites-available/ruthypearlswear
 ---
 server {
     listen 80;
-    server_name www.ruthypearlswear.com ruthypearlswear.com;
+    server_name www.rpwears.com rpwears.com;
 
     location / {
         proxy_pass http://localhost:3000;
@@ -145,7 +145,7 @@ sudo systemctl restart nginx
 ### Step 6: Set Up HTTPS/SSL
 ```bash
 # Get SSL certificate
-sudo certbot --nginx -d www.ruthypearlswear.com -d ruthypearlswear.com
+sudo certbot --nginx -d www.rpwears.com -d rpwears.com
 
 # Auto-renewal (happens automatically)
 sudo systemctl enable certbot.timer
@@ -192,7 +192,7 @@ Connect your domain registrar to AWS:
 
 ### Step 4: Connect Custom Domain
 1. Settings → Domains
-2. Add `www.ruthypearlswear.com`
+2. Add `www.rpwears.com`
 3. Update DNS CNAME to Railway's domain
 
 ---
@@ -307,7 +307,7 @@ npm install firebase
 - [ ] SSL certificate configured
 - [ ] DNS propagated (24-48 hours)
 - [ ] Custom domain added to deployment platform
-- [ ] Test site is accessible at www.ruthypearlswear.com
+- [ ] Test site is accessible at www.rpwears.com
 
 ---
 
