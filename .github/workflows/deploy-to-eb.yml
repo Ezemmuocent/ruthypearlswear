@@ -3,6 +3,12 @@ name: Deploy to AWS Elastic Beanstalk
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      envName:
+        description: 'Elastic Beanstalk environment name'
+        required: false
+        default: ''
 
 jobs:
   deploy:
