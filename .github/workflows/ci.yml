@@ -16,6 +16,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install CDK dependencies
+        working-directory: cdk
+        run: npm ci
+
       - name: Run type check
         run: npm run type-check
 
