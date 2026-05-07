@@ -22,9 +22,9 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Use Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20
 
       - name: Install CDK dependencies
         run: |
