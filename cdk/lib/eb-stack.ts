@@ -78,6 +78,46 @@ export class EbStack extends cdk.Stack {
       userName: ciUser.userName,
     });
 
+    // Create an IAM Role for GitHub Actions OIDC (optional alternative to long-lived CI user)
+    const oidcProviderArn = `arn:aws:iam::${this.account}:oidc-provider/token.actions.githubusercontent.com`;
+    const oidcPrincipal = new iam.WebIdentityPrincipal(oidcProviderArn, {
+      StringEquals: {
+        'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+        'token.actions.githubusercontent.com:sub': `repo:Ezemmuocent/ruthypearlswear:ref:refs/heads/main`
+      }
+    });
+
+    const githubActionsRole = new iam.Role(this, 'GitHubActionsRole', {
+      assumedBy: oidcPrincipal,
+      roleName: `${appName}-github-actions-role`,
+    });
+
+    // Attach a policy to the OIDC role with the same permissions as the CI user
+    githubActionsRole.addToPolicy(new iam.PolicyStatement({
+      actions: [
+        's3:PutObject',
+        's3:PutObjectAcl',
+        's3:GetObject',
+        's3:ListBucket'
+      ],
+      resources: [bucket.bucketArn, `${bucket.bucketArn}/*`],
+    }));
+
+    githubActionsRole.addToPolicy(new iam.PolicyStatement({
+      actions: [
+        'elasticbeanstalk:CreateApplicationVersion',
+        'elasticbeanstalk:UpdateEnvironment',
+        'elasticbeanstalk:DescribeEnvironments',
+        'elasticbeanstalk:CreateApplication'
+      ],
+      resources: ['*'],
+    }));
+
+    githubActionsRole.addToPolicy(new iam.PolicyStatement({
+      actions: ['iam:PassRole'],
+      resources: ['*'],
+    }));
+
     new cdk.CfnOutput(this, 'BucketName', { value: bucket.bucketName });
     new cdk.CfnOutput(this, 'ApplicationName', { value: app.applicationName || appName });
     new cdk.CfnOutput(this, 'EnvironmentName', { value: env.environmentName || envName });
