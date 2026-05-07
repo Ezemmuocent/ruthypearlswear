@@ -1,0 +1,20 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "35ceabe27fda5b01ca1e27cc4230900beefda7d105f2ab2d25412c83d982e4a7": {
+      "displayName": "RuthyPearlsEbStack Template",
+      "source": {
+        "path": "RuthyPearlsEbStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-2c9216d7": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "35ceabe27fda5b01ca1e27cc4230900beefda7d105f2ab2d25412c83d982e4a7.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,234 @@
+{
+  "/RuthyPearlsEbStack": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/EBApplication": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EBApplication"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:30:17)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/EBEnvironment": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EBEnvironment"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:36:17)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CICDAccessKey": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CICDAccessKey"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:77:23)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/BucketName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BucketName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:81:5)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/ApplicationName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApplicationName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:82:5)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/EnvironmentName": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "EnvironmentName"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:83:5)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CIUser": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CIUser"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:84:5)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CIUserAccessKeyId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CIUserAccessKeyId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:85:5)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CIUserSecretAccessKey": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CIUserSecretAccessKey"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:86:5)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode\\source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode\\source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/AppBucket/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "AppBucket20FEBF1C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Bucket2 in aws-cdk-lib...",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:22:20)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CICDUser/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CICDUser60E098AD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new User2 in aws-cdk-lib...",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:43:20)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CICDPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CICDPolicyB09F6042"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Policy2 in aws-cdk-lib...",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:47:22)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode\\source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/CDKMetadata/Condition": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadataAvailable"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode\\source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

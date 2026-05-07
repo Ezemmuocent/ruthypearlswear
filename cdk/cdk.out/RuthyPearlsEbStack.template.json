@@ -1,0 +1,478 @@
+{
+ "Resources": {
+  "AppBucket20FEBF1C": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketName": {
+     "Fn::Join": [
+      "",
+      [
+       {
+        "Ref": "AWS::AccountId"
+       },
+       "-ruthypearls-bucket"
+      ]
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/AppBucket/Resource"
+   }
+  },
+  "EBApplication": {
+   "Type": "AWS::ElasticBeanstalk::Application",
+   "Properties": {
+    "ApplicationName": "RuthyPearlsWear",
+    "Description": "RuthyPearls Wear application"
+   },
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/EBApplication"
+   }
+  },
+  "EBEnvironment": {
+   "Type": "AWS::ElasticBeanstalk::Environment",
+   "Properties": {
+    "ApplicationName": "RuthyPearlsWear",
+    "EnvironmentName": "RuthyPearlsWear-Env",
+    "SolutionStackName": "64bit Amazon Linux 2 v3.6.8 running Docker"
+   },
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/EBEnvironment"
+   }
+  },
+  "CICDUser60E098AD": {
+   "Type": "AWS::IAM::User",
+   "Properties": {
+    "UserName": "RuthyPearlsWear-ci-user"
+   },
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/CICDUser/Resource"
+   }
+  },
+  "CICDPolicyB09F6042": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:GetObject",
+        "s3:ListBucket"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "AppBucket20FEBF1C",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "AppBucket20FEBF1C",
+             "Arn"
+            ]
+           },
+           "/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "elasticbeanstalk:CreateApplicationVersion",
+        "elasticbeanstalk:UpdateEnvironment",
+        "elasticbeanstalk:DescribeEnvironments",
+        "elasticbeanstalk:CreateApplication"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "CICDPolicyB09F6042",
+    "Users": [
+     {
+      "Ref": "CICDUser60E098AD"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/CICDPolicy/Resource"
+   }
+  },
+  "CICDAccessKey": {
+   "Type": "AWS::IAM::AccessKey",
+   "Properties": {
+    "UserName": {
+     "Ref": "CICDUser60E098AD"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/CICDAccessKey"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/0WKwQrCMBBEv8V7ukrFD9DiyYOieJY0XWFNui3dTUVC/l1iD8LAm8dMDfWuhs3KvqVyna8CtZBuap039i2PJFtIh+g8qmmevLRsMFhRci1aFrXBQ2qevB/HQM4qDVy+R55pGrhH1mzI9pDuglNZfrwMgdyn6L/tnUORE35yLnqOOkbNhocO4SXrud5AyeolRNUUWalHuC78Aheja13JAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "RuthyPearlsEbStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Outputs": {
+  "BucketName": {
+   "Value": {
+    "Ref": "AppBucket20FEBF1C"
+   }
+  },
+  "ApplicationName": {
+   "Value": "RuthyPearlsWear"
+  },
+  "EnvironmentName": {
+   "Value": "RuthyPearlsWear-Env"
+  },
+  "CIUser": {
+   "Value": {
+    "Ref": "CICDUser60E098AD"
+   }
+  },
+  "CIUserAccessKeyId": {
+   "Value": {
+    "Ref": "CICDAccessKey"
+   }
+  },
+  "CIUserSecretAccessKey": {
+   "Value": {
+    "Fn::GetAtt": [
+     "CICDAccessKey",
+     "SecretAccessKey"
+    ]
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

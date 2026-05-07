@@ -21,10 +21,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Use Node.js 18
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
       - name: Install CDK dependencies
         run: |
