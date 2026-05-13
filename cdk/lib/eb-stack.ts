@@ -36,7 +36,7 @@ export class EbStack extends cdk.Stack {
     const env = new eb.CfnEnvironment(this, 'EBEnvironment', {
       applicationName: app.applicationName || appName,
       environmentName: envName,
-      solutionStackName: '64bit Amazon Linux 2 v3.6.8 running Docker',
+      solutionStackName: '64bit Amazon Linux 2023 v6.0.0 running Docker',
     });
 
     // IAM User for CI (GitHub Actions) with restricted permissions
