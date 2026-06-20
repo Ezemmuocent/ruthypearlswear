@@ -58,7 +58,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:81:5)",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:121:5)",
         "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -72,7 +72,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:82:5)",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:122:5)",
         "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -86,7 +86,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:83:5)",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:123:5)",
         "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -100,7 +100,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:84:5)",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:124:5)",
         "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -114,7 +114,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:85:5)",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:125:5)",
         "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -128,7 +128,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:86:5)",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:126:5)",
         "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -205,6 +205,21 @@
       ]
     }
   ],
+  "/RuthyPearlsEbStack/GitHubActionsRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GitHubActionsRole4F1BBA26"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Role2 in aws-cdk-lib...",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:90:31)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
   "/RuthyPearlsEbStack/CDKMetadata/Default": [
     {
       "type": "aws:cdk:logicalId",
@@ -228,6 +243,21 @@
       "data": [
         "...aws-cdk-lib, node internals, @cspotcode\\source-map-support...",
         "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/RuthyPearlsEbStack/GitHubActionsRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GitHubActionsRoleDefaultPolicy69DA0189"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new EbStack (C:\\RuthyPearls\\ruthypearlswear\\cdk\\lib\\eb-stack.ts:96:23)",
+        "<anonymous> (C:\\RuthyPearls\\ruthypearlswear\\cdk\\bin\\eb-cdk.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
       ]
     }
   ]
