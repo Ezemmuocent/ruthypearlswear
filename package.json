@@ -5,12 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "next export",
+    "build:export": "npm run build && npm run export",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
     "type-check": "tsc --noEmit",
     "deploy:vercel": "vercel deploy --prod",
     "deploy:railway": "railway up",
+    "deploy:gh-pages": "gh-pages -d out",
+    "export:static": "node ./scripts/export-static.js",
+    "deploy:gh-pages:full": "npm run export:static && npm run deploy:gh-pages",
     "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
@@ -26,6 +31,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "gh-pages": "^5.0.0"
   }
 }

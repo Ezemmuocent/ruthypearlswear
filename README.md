@@ -305,6 +305,34 @@ NEXTAUTH_SECRET=your-secret-key
 DATABASE_URL=your_database_connection_string
 ```
 
+### Deploy to GitHub Pages (static)
+
+This repository can be published to GitHub Pages by exporting a static build. Note: GitHub Pages only serves static files — API routes and server-side features will not work. For full Next.js functionality use Vercel or a Node server.
+
+- Local manual deploy (one-time):
+
+```bash
+# install deps
+npm install
+
+# build and export
+npm run build
+npm run export
+
+# publish the `out/` directory to the `gh-pages` branch
+npm run deploy:gh-pages
+```
+
+- Automatic deploy via GitHub Actions:
+
+A workflow is included at [.github/workflows/deploy-gh-pages.yml](.github/workflows/deploy-gh-pages.yml) that builds and exports the site and deploys `out/` to the `gh-pages` branch on push to `main`/`master`.
+
+The workflow sets `NEXT_PUBLIC_BASE_PATH` to `/ruthypearlswear`. If your repository name is different, update the workflow or change the env value to `/<your-repo-name>` so assets and links resolve correctly.
+
+- Important:
+   - After deployment, enable GitHub Pages in your repository Settings → Pages and select the `gh-pages` branch as the source.
+   - The site will be available at: `https://<username>.github.io/ruthypearlswear` (replace `<username>` with your GitHub username).
+
 ### Custom Domain Setup
 1. Purchase domain at [Namecheap](https://namecheap.com), [GoDaddy](https://godaddy.com), or [Google Domains](https://domains.google.com)
 2. Update DNS records to point to your hosting provider:
