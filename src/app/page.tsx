@@ -32,7 +32,7 @@ export default function Home() {
               Welcome to RuthyPearls Wear
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-purple-100">
-              Premium Quality Fashion & Wears for the Modern Woman
+              Premium Quality Fashion & Wears for the Modern Men and Woman
             </p>
             <Link
               href="/products"
